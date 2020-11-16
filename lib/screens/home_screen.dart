@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:blood_pressure_tracker/providers/providers.dart';
 import 'package:blood_pressure_tracker/screens/screens.dart';
 import 'package:blood_pressure_tracker/utils/utils.dart';
+import 'package:blood_pressure_tracker/widgets/home_screen_button.dart';
 import 'package:blood_pressure_tracker/widgets/new_entry_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -173,6 +174,19 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
+              Builder(
+                builder: (context) => HomeScreenButton(
+                  text: 'New Entry',
+                  onPressed: () async {
+                    var successfulEntry = await showNewEntryDialog(context);
+                    if (successfulEntry) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Successfully made new entry'),
+                      ));
+                    }
+                  },
+                ),
+              ),
               SizedBox(height: 24.0),
               FlatButton(
                 shape: RoundedRectangleBorder(
@@ -186,6 +200,14 @@ class HomeScreen extends StatelessWidget {
                   'History',
                   style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600),
                 ),
+                onPressed: () {
+                  print(' -----> Clicked History <----- ');
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HistoryScreen()));
+                },
+              ),
+              HomeScreenButton(
+                text: 'History',
                 onPressed: () {
                   print(' -----> Clicked History <----- ');
                   Navigator.of(context).push(
@@ -258,6 +280,7 @@ class HomeScreen extends StatelessWidget {
                     /*file = */ await writeToFile(file, allEntries);
                   } else if (hasChanges) {
                     await file.delete();
+                    exists = await file.exists();
                     /*file = */
                     await writeToFile(file, allEntries);
                   }
