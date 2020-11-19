@@ -1,7 +1,8 @@
 import 'package:blood_pressure_tracker/database/database.dart';
 import 'package:blood_pressure_tracker/models/models.dart';
-import 'package:blood_pressure_tracker/models/ordering_option.dart';
 import 'package:blood_pressure_tracker/providers/providers.dart';
+import 'package:blood_pressure_tracker/styles/text.dart';
+import 'package:blood_pressure_tracker/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -35,11 +36,7 @@ class HistoryScreen extends StatelessWidget {
                       context.read(orderingProvider).state = newValue;
                     },
                     underline: Container(),
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54,
-                    ),
+                    style: dropdownButtonTextStyle,
                   );
                 }),
                 Consumer(builder: (context, watch, _) {
@@ -61,11 +58,7 @@ class HistoryScreen extends StatelessWidget {
                       context.read(timeIntervalProvider).state = newValue;
                     },
                     underline: Container(),
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54,
-                    ),
+                    style: dropdownButtonTextStyle,
                   );
                 }),
               ],
@@ -85,14 +78,7 @@ class HistoryScreen extends StatelessWidget {
                     data: (List<Entry> value) {
                       if (value.isEmpty) {
                         return Center(
-                          child: Text(
-                            'No Entries Yet',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black54,
-                            ),
-                          ),
+                          child: NoEntriesMessage(),
                         );
                       }
                       return ListView.separated(
@@ -112,6 +98,7 @@ class HistoryScreen extends StatelessWidget {
                               direction: DismissDirection.endToStart,
                               background: Container(
                                 alignment: Alignment.centerRight,
+                                color: Colors.red,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 24.0),
@@ -125,16 +112,13 @@ class HistoryScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         'DELETE',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w600,
+                                        style: entryCardTextStyle.copyWith(
                                           color: Colors.white,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                color: Colors.red,
                               ),
                               onDismissed: (direction) async {
                                 await context
@@ -151,69 +135,24 @@ class HistoryScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              entry.systolic.toString(),
-                                              style: TextStyle(
-                                                fontSize: 36.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black54,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Systolic',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black38,
-                                              ),
-                                            ),
-                                          ],
+                                        child: ParameterNameValuePair(
+                                          name: 'Systolic',
+                                          value: entry.systolic.toString(),
+                                          axis: Axis.vertical,
                                         ),
                                       ),
                                       Expanded(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              entry.diastolic.toString(),
-                                              style: TextStyle(
-                                                fontSize: 36.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black54,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Diastolic',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black38,
-                                              ),
-                                            ),
-                                          ],
+                                        child: ParameterNameValuePair(
+                                          name: 'Diastolic',
+                                          value: entry.diastolic.toString(),
+                                          axis: Axis.vertical,
                                         ),
                                       ),
                                       Expanded(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              entry.pulse.toString(),
-                                              style: TextStyle(
-                                                fontSize: 36.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black54,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Pulse',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black38,
-                                              ),
-                                            ),
-                                          ],
+                                        child: ParameterNameValuePair(
+                                          name: 'Pulse',
+                                          value: entry.pulse.toString(),
+                                          axis: Axis.vertical,
                                         ),
                                       ),
                                     ],
@@ -224,11 +163,7 @@ class HistoryScreen extends StatelessWidget {
                                     child: Text(
                                       DateFormat('dd.MM.yyyy - HH:mm')
                                           .format(entry.timestamp),
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black38,
-                                      ),
+                                      style: entryCardTextStyle,
                                     ),
                                   ),
                                   SizedBox(height: 6.0),
