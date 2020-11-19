@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:blood_pressure_tracker/providers/providers.dart';
 import 'package:blood_pressure_tracker/screens/screens.dart';
+import 'package:blood_pressure_tracker/styles/text.dart';
 import 'package:blood_pressure_tracker/utils/utils.dart';
-import 'package:blood_pressure_tracker/widgets/new_entry_dialog.dart';
+import 'package:blood_pressure_tracker/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -39,85 +40,28 @@ class HomeScreen extends StatelessWidget {
                                 SizedBox(height: 12.0),
                                 Text(
                                   'Last entry:',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black54,
-                                  ),
+                                  style: homeScreenTextStyle,
                                 ),
                                 Text(
-                                  //'03.11.2020. at 22:59',
                                   DateFormat('dd. MMMM yyyy - HH:mm')
                                       .format(entry.timestamp),
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black54,
-                                  ),
+                                  style: homeScreenTextStyle,
                                 ),
                                 SizedBox(height: 12.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'SYS: ',
-                                      style: TextStyle(
-                                        fontSize: 32.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                    Text(
-                                      entry.systolic.toString(),
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                  ],
+                                ParameterNameValuePair(
+                                  name: 'SYS: ',
+                                  value: entry.systolic.toString(),
+                                  axis: Axis.horizontal,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'DIA: ',
-                                      style: TextStyle(
-                                        fontSize: 32.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                    Text(
-                                      entry.diastolic.toString(),
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                  ],
+                                ParameterNameValuePair(
+                                  name: 'DIA: ',
+                                  value: entry.diastolic.toString(),
+                                  axis: Axis.horizontal,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'PULSE: ',
-                                      style: TextStyle(
-                                        fontSize: 32.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                    Text(
-                                      entry.pulse.toString(),
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                  ],
+                                ParameterNameValuePair(
+                                  name: 'PULSE: ',
+                                  value: entry.pulse.toString(),
+                                  axis: Axis.horizontal,
                                 ),
                                 SizedBox(height: 12.0),
                               ],
@@ -127,14 +71,7 @@ class HomeScreen extends StatelessWidget {
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 60.0),
-                                child: Text(
-                                  'No Entries Yet',
-                                  style: TextStyle(
-                                    fontSize: 26.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black54,
-                                  ),
-                                ),
+                                child: NoEntriesMessage(),
                               ),
                             );
                           }
@@ -150,19 +87,8 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 24.0),
               Builder(
-                builder: (context) => FlatButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
-                  textColor: Colors.white,
-                  color: Theme.of(context).accentColor,
-                  child: Text(
-                    'New Entry',
-                    style:
-                        TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600),
-                  ),
+                builder: (context) => HomeScreenButton(
+                  text: 'New Entry',
                   onPressed: () async {
                     var successfulEntry = await showNewEntryDialog(context);
                     if (successfulEntry) {
@@ -174,18 +100,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 24.0),
-              FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6.0),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                textColor: Colors.white,
-                color: Theme.of(context).accentColor,
-                child: Text(
-                  'History',
-                  style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600),
-                ),
+              HomeScreenButton(
+                text: 'History',
                 onPressed: () {
                   print(' -----> Clicked History <----- ');
                   Navigator.of(context).push(
@@ -227,18 +143,8 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 12.0),
-              FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6.0),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                textColor: Colors.white,
-                color: Theme.of(context).accentColor,
-                child: Text(
-                  'Send as .csv',
-                  style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600),
-                ),
+              HomeScreenButton(
+                text: 'Send as .csv',
                 onPressed: () async {
                   print(' -----> Clicked Send as .csv <----- ');
 
@@ -258,6 +164,7 @@ class HomeScreen extends StatelessWidget {
                     /*file = */ await writeToFile(file, allEntries);
                   } else if (hasChanges) {
                     await file.delete();
+                    exists = await file.exists();
                     /*file = */
                     await writeToFile(file, allEntries);
                   }
