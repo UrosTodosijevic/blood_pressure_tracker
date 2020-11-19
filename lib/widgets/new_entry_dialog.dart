@@ -303,11 +303,6 @@ class _NewEntryDialogState extends State<NewEntryDialog> {
               var _diastolicPressure = int.parse(_diastolicController.text);
               var _pulse = int.parse(_pulseController.text);
 
-              print(_systolicPressure);
-              print(_diastolicPressure);
-              print(_pulse);
-              print(_dateTime);
-
               var entriesCompanion = EntriesCompanion(
                 systolic: Value(_systolicPressure),
                 diastolic: Value(_diastolicPressure),
