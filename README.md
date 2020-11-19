@@ -2,14 +2,10 @@
 
 Blood Pressure Tracker is a simple application that allows users to keep track of their blood pressure.
 
-
-
 ## Screenshots
 
-<img alt="Home Screen" src="/resources/home_screen.png" width="400"/> 
-<img alt="New Entry Dialog" src="/resources/new_entry_dialog.png" width="400"/> 
-<img alt="History Screen" src="/resources/history.png" width="400"/>
-<img alt="Deleting Entry From Database" src="/resources/deleting_entry.png" width="400"/>
+<img alt="Home Screen" src="/resources/home_screen.png" width="400"/> <img alt="New Entry Dialog" src="/resources/new_entry_dialog.png" width="400"/> 
+<img alt="History Screen" src="/resources/history.png" width="400"/> <img alt="Deleting Entry From Database" src="/resources/deleting_entry.png" width="400"/> 
 <img alt="Share Dialog" src="/resources/export_in_csv.png" width="400"/>
 
 ## Packages
@@ -17,15 +13,15 @@ Blood Pressure Tracker is a simple application that allows users to keep track o
 - `flutter_riverpod` for state management
 - `intl` for DateTime formatting
 - `share` allows sharing of generated .csv file
-    
-    Moor - local database.
+
+Moor - local database.
 - `moor` core package which defines most apis
 - `sqlite3_flutter_libs` ships the latest `sqlite3` version with app
 - `path_provider` and `path` used to find right location for database
 - `moor_generator` generates query code based on tables
 - `build_runner` code-generation tool
 
-    Hive - used to track if there are changes in database since last export. Hive wasn't necessary, I just wanted to learn it.
+Hive - used to track if there are changes in database since last export. Hive wasn't necessary, I just wanted to learn it.
 - `hive` lightweight fast key-value database
 - `hive_flutter` extension for hive
 
@@ -57,7 +53,3 @@ Visual Studio Code ([steps took from here](https://dev.to/adityasingh20/how-to-c
 ## Author
 
 * [Uros Todosijevic](https://github.com/UrosTodosijevic)
-
-<img alt="Share Dialog" src="https://user-images.githubusercontent.com/19648848/99724380-d4a49300-2ab3-11eb-960f-3dcff2eec88e.png" width="400"/> <img alt="Share Dialog" src="https://user-images.githubusercontent.com/19648848/99724380-d4a49300-2ab3-11eb-960f-3dcff2eec88e.png" width="400"/>
-
-
