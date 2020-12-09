@@ -2,10 +2,11 @@ import 'package:blood_pressure_tracker/database/database.dart';
 import 'package:blood_pressure_tracker/providers/providers.dart';
 import 'package:blood_pressure_tracker/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:moor/moor.dart' hide Column;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'widgets.dart';
 
 /// Function which is used for calling NewEntryDialog
 Future<bool> showNewEntryDialog(BuildContext context) async {
@@ -68,112 +69,22 @@ class _NewEntryDialogState extends State<NewEntryDialog> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
-                    TextFormField(
+                    EntryDialogTextFormField(
                       controller: _systolicController,
-                      cursorWidth: 3.0,
-                      cursorColor: Theme.of(context).accentColor,
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(3),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black54,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Systolic',
-                        labelStyle: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
-                          //color: Colors.black45,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        isDense: true,
-                      ),
-                      autovalidateMode: AutovalidateMode.disabled,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Value is required';
-                        }
-                        return null;
-                      },
+                      labelText: 'Systolic',
+                      context: context,
                     ),
                     SizedBox(height: 12.0),
-                    TextFormField(
+                    EntryDialogTextFormField(
                       controller: _diastolicController,
-                      cursorWidth: 3.0,
-                      cursorColor: Theme.of(context).accentColor,
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(3),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black54,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Diastolic',
-                        labelStyle: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
-                          //color: Colors.black45,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        isDense: true,
-                      ),
-                      autovalidateMode: AutovalidateMode.disabled,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Value is required';
-                        }
-                        return null;
-                      },
+                      labelText: 'Diastolic',
+                      context: context,
                     ),
                     SizedBox(height: 12.0),
-                    TextFormField(
+                    EntryDialogTextFormField(
                       controller: _pulseController,
-                      cursorWidth: 3.0,
-                      cursorColor: Theme.of(context).accentColor,
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(3),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black54,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Pulse',
-                        labelStyle: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
-                          //color: Colors.black45,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        isDense: true,
-                      ),
-                      autovalidateMode: AutovalidateMode.disabled,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Value is required';
-                        }
-                        return null;
-                      },
+                      labelText: 'Pulse',
+                      context: context,
                     ),
                     !_customDateTime
                         ? SizedBox(height: 12.0)
