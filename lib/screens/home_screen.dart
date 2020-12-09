@@ -94,6 +94,7 @@ class HomeScreen extends StatelessWidget {
                     if (successfulEntry) {
                       Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text('Successfully made new entry'),
+                        duration: Duration(seconds: 1),
                       ));
                     }
                   },

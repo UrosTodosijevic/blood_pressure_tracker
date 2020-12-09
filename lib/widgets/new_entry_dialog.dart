@@ -73,7 +73,7 @@ class _NewEntryDialogState extends State<NewEntryDialog> {
                       cursorWidth: 3.0,
                       cursorColor: Theme.of(context).accentColor,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.streetAddress,
+                      keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(3),
                         FilteringTextInputFormatter.digitsOnly,
@@ -109,7 +109,7 @@ class _NewEntryDialogState extends State<NewEntryDialog> {
                       cursorWidth: 3.0,
                       cursorColor: Theme.of(context).accentColor,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.streetAddress,
+                      keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(3),
                         FilteringTextInputFormatter.digitsOnly,
@@ -145,7 +145,7 @@ class _NewEntryDialogState extends State<NewEntryDialog> {
                       cursorWidth: 3.0,
                       cursorColor: Theme.of(context).accentColor,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.streetAddress,
+                      keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(3),
                         FilteringTextInputFormatter.digitsOnly,
